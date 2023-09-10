@@ -1,8 +1,11 @@
-export function postPassenger(req,res){
+import { passengersServices } from "../services/passengers.services.js"
+
+export async function postPassenger(req,res){
     const {firstName, lastName} = req.body
-    res.send(`Post Passenger ${firstName} ${lastName}`)
+    await passengersServices.createPassenger(firstName,lastName)
+    res.send(`Passenger ${firstName} ${lastName} criado`)
 }
 
-export function getPassengerTravels(req,res){
+export async function getPassengerTravels(req,res){
     res.send("Get Passenger Travels")
 }
