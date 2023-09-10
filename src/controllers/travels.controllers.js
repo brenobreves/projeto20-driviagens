@@ -1,4 +1,8 @@
-export function postTravel(req,res){
+import { travelsServices } from "../services/travels.services.js"
+
+export async function postTravel(req,res){
     const{ passengerId, flightId} = req.body
-    res.send(`PostTravel ${passengerId} ${flightId}`)
+    await travelsServices.validateIds(passengerId,flightId)
+    await travelsServices.createTravel(passengerId,flightId)
+    res.send(`Passageiro de id:${passengerId} registrado no Vôo de id:${flightId}`)
 }
