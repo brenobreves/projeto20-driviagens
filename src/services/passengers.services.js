@@ -4,8 +4,10 @@ async function createPassenger(firstName,lastName){
     await passengersRepository.create(firstName,lastName)
 }
 
-async function getPassengersTravels(){
-    const query = await passengersRepository.getPassengersTravels()
+async function getPassengersTravels(name){
+    console.log(name)
+    const query = await passengersRepository.getPassengersTravelsByName(name)
+    if(query.rowCount > 10) throw {type:"Too many results"}
     const passengersTravels = query.rows
     const resObj = passengersTravels.map((p)=>({
         passenger: p.firstName+" "+p.lastName,

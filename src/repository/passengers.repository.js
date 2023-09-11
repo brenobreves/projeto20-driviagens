@@ -6,7 +6,7 @@ async function create(firstName,lastName){
     `,[firstName,lastName])
 }
 
-async function getPassengersTravels(){
+async function getPassengersTravelsByName(name){
     return await db.query(`
     SELECT 
         p."firstName",p."lastName", COUNT(*) as travels 
@@ -16,10 +16,11 @@ async function getPassengersTravels(){
         passengers p 
     ON 
         p.id=t."passengerId" 
+    WHERE
+        p."firstName" ILIKE $1 OR p."lastName" ILIKE $1   
     GROUP BY 
         p."firstName",p."lastName"
     ORDER BY
-        travels;`)
+        travels;`,['%'+name+'%'])
 }
-
-export const passengersRepository = {create, getPassengersTravels}
+export const passengersRepository = {create,getPassengersTravelsByName}

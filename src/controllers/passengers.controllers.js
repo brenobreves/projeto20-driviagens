@@ -7,6 +7,15 @@ export async function postPassenger(req,res){
 }
 
 export async function getPassengerTravels(req,res){
-    const returnObj = await passengersServices.getPassengersTravels()
+    let name
+    if(req.query.name) {
+        name = req.query.name
+    }else{
+        name= ""
+    }
+    console.log(name)
+    if(!name) name=""
+    console.log(name)
+    const returnObj = await passengersServices.getPassengersTravels(name)
     res.send(returnObj)
 }
