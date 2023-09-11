@@ -6,4 +6,20 @@ async function create(firstName,lastName){
     `,[firstName,lastName])
 }
 
-export const passengersRepository = {create}
+async function getPassengersTravels(){
+    return await db.query(`
+    SELECT 
+        p."firstName",p."lastName", COUNT(*) as travels 
+    FROM 
+        travels t 
+    JOIN 
+        passengers p 
+    ON 
+        p.id=t."passengerId" 
+    GROUP BY 
+        p."firstName",p."lastName"
+    ORDER BY
+        travels;`)
+}
+
+export const passengersRepository = {create, getPassengersTravels}

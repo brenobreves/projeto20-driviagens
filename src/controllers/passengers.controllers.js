@@ -7,5 +7,6 @@ export async function postPassenger(req,res){
 }
 
 export async function getPassengerTravels(req,res){
-    res.send("Get Passenger Travels")
+    const returnObj = await passengersServices.getPassengersTravels()
+    res.send(returnObj)
 }
