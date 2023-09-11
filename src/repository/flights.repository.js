@@ -12,4 +12,10 @@ async function create(origin, destination, date){
     `,[origin, destination, date])
 }
 
-export const flightsRepository = {getCityById, create}
+async function getFlights(){
+    return await db.query(`
+        SELECT * FROM flights ORDER BY date ASC;
+        `)
+}
+
+export const flightsRepository = {getCityById, create, getFlights}

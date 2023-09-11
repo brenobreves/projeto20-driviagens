@@ -7,6 +7,7 @@ export async function postFlight(req,res){
     res.send(`Vôo partindo da cidade de id:${origin} com destino para id:${destination} no dia:${date} criado`)
 }
 
-export function getFlights(req,res){
-    res.send("Get Flights")
+export async function getFlights(req,res){
+    const flights = await flightServices.getFlights()
+    res.send(flights)
 }
